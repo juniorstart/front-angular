@@ -28,9 +28,7 @@ import { LoginComponent } from './login/login.component';
     MatInputModule,
     MatIconModule,
     ReactiveFormsModule,
-    RouterModule.forRoot([
-      { path: 'register', component: RegisterComponent },
-    ])
+
   ],
   providers: [],
   bootstrap: [AppComponent]
