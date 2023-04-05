@@ -1,20 +1,4 @@
 <mat-toolbar color="primary">
 	<span>Junior Start</span>
 </mat-toolbar>
-<mat-sidenav-container>
-	<mat-sidenav mode="side" opened>
-		<nav>
-			<ul>
-				<li>
-					<a mat-flat-button color="primary" [routerLink]="'login'">Login</a>
-				</li>
-				<li>
-					<a mat-flat-button color="primary" [routerLink]="'register'" >Register</a>
-				</li>
-			</ul>
-		</nav>
-	</mat-sidenav>
-	<mat-sidenav-content>Main content
-		<router-outlet></router-outlet>
-	</mat-sidenav-content>
-</mat-sidenav-container>
+<app-sidenav></app-sidenav>

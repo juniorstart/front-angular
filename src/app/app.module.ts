@@ -12,11 +12,13 @@ import {MatIconModule} from '@angular/material/icon';
 import {ReactiveFormsModule} from '@angular/forms';
 import {RouterModule} from '@angular/router';
 import { LoginComponent } from './login/login.component';
+import { SidenavComponent } from './sidenav/sidenav.component';
 @NgModule({
   declarations: [
     RegisterComponent,
     AppComponent,
     LoginComponent,
+    SidenavComponent,
   ],
   imports: [
     BrowserModule,
