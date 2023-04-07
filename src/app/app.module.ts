@@ -10,15 +10,19 @@ import { RegisterComponent } from './register/register.component';
 import {MatInputModule} from '@angular/material/input';
 import {MatIconModule} from '@angular/material/icon';
 import {ReactiveFormsModule} from '@angular/forms';
-import {RouterModule} from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
+import { HttpClientModule } from '@angular/common/http';
+import {AuthService} from './services/auth.service';
+import { RecruitmentsComponent } from './recruitments/recruitments.component';
+
 @NgModule({
   declarations: [
     RegisterComponent,
     AppComponent,
     LoginComponent,
     SidenavComponent,
+    RecruitmentsComponent,
   ],
   imports: [
     BrowserModule,
@@ -30,9 +34,9 @@ import { SidenavComponent } from './sidenav/sidenav.component';
     MatInputModule,
     MatIconModule,
     ReactiveFormsModule,
-
+    HttpClientModule,
   ],
-  providers: [],
+  providers: [AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

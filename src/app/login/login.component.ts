@@ -1,5 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {HttpClient} from '@angular/common/http';
+import {AuthService} from '../services/auth.service';
+import {LoginData} from '../types/auth';
 
 @Component({
   selector: 'app-login',
@@ -7,20 +10,23 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
   styleUrls: ['./login.component.scss']
 })
 
-export class LoginComponent implements OnInit{
+export class LoginComponent{
 
-  loginForm: FormGroup
+  loginForm = new FormGroup({
+    login: new FormControl('', [Validators.required, Validators.minLength(3)]),
+    password: new FormControl('', [Validators.required, Validators.minLength(8)])
+  })
 
-  ngOnInit() {
-    this.loginForm = new FormGroup({
-      login: new FormControl('', [Validators.required, Validators.minLength(3)]),
-      password: new FormControl('', [Validators.required, Validators.minLength(8)])
-    })
+  constructor(private authService: AuthService) {
   }
+
   onSubmit(e: MouseEvent) {
     e.preventDefault();
     if (this.loginForm.valid) {
       console.log('SUBMIT');
+      this.authService.login(this.loginForm.value as LoginData).subscribe({
+        next: (token) => localStorage.setItem("userToken", token)
+      })
     } else {
       this.loginForm.markAllAsTouched();
       this.loginForm.setErrors([{...this.loginForm.errors}]);
