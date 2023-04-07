@@ -1,0 +1,66 @@
+<form [formGroup]="registerForm" (ngSubmit)="onSubmit($event)" class="formWrapper">
+	<mat-form-field class="example-form-field" [ngClass]="{'mb-3': registerForm.controls['login'].errors && registerForm.controls['login'].touched}">
+		<mat-label>Login</mat-label>
+		<input matInput type="text" id="login" formControlName="login">
+		<mat-error *ngIf="registerForm.controls['login']?.errors?.['required']">
+			This field is required
+		</mat-error>
+		<mat-error *ngIf="registerForm.controls['login']?.errors?.['minlength']">
+			Login must consists of at least 3 characters
+		</mat-error>
+	</mat-form-field>
+	<mat-form-field class="example-form-field" [ngClass]="{'mb-3': registerForm.controls['email'].errors && registerForm.controls['email'].touched}">
+		<mat-label>Email</mat-label>
+		<input matInput type="text" id="email" formControlName="email">
+		<mat-error *ngIf="registerForm.controls['email']?.errors?.['required']">
+			This field is required
+		</mat-error>
+		<mat-error *ngIf="registerForm.controls['email']?.errors?.['email']">
+			Please enter a valid email address
+		</mat-error>
+	</mat-form-field>
+	<mat-form-field class="example-form-field" [ngClass]="{'mb-3': registerForm.controls['password'].errors && registerForm.controls['password'].touched}">
+		<mat-label>Password</mat-label>
+		<input matInput type="password" name="password" formControlName="password">
+		<mat-error *ngIf="registerForm.controls['password']?.errors?.['required']">
+			This field is required
+		</mat-error>
+		<mat-error *ngIf="registerForm.controls['password']?.errors?.['minlength']">
+			Password must consists of at least 8 characters
+		</mat-error>
+		<mat-error *ngIf="registerForm.controls['password']?.errors?.['pwdMismatch']">
+			Passwords do not match
+		</mat-error>
+	</mat-form-field>
+
+	<mat-form-field class="example-form-field" [ngClass]="{'mb-3': registerForm.controls['repeatPassword'].errors && registerForm.controls['repeatPassword'].touched}">
+		<mat-label>Repeat Password</mat-label>
+		<input matInput type="password" name="repeatPassword" formControlName="repeatPassword">
+		<mat-error *ngIf="registerForm.controls['repeatPassword']?.errors?.['required']">
+			This field is required
+		</mat-error>
+		<mat-error *ngIf="registerForm.controls['repeatPassword']?.errors?.['minlength']">
+			Password must consists of at least 8 characters
+		</mat-error>
+		<mat-error *ngIf="registerForm.controls['repeatPassword']?.errors?.['pwdMismatch']">
+			Passwords do not match
+		</mat-error>
+	</mat-form-field>
+
+	<mat-form-field class="example-form-field" [ngClass]="{'mb-3': registerForm.controls['firstName'].errors && registerForm.controls['firstName'].touched}">
+		<mat-label>First Name</mat-label>
+		<input matInput type="text" name="firstName" formControlName="firstName">
+		<mat-error *ngIf="registerForm.controls['firstName']?.errors?.['required']">
+			This field is required
+		</mat-error>
+	</mat-form-field>
+	<mat-form-field class="example-form-field" [ngClass]="{'mb-3': registerForm.controls['lastName'].errors && registerForm.controls['lastName'].touched}">
+		<mat-label>Last Name</mat-label>
+		<input matInput type="text" name="lastName" formControlName="lastName">
+		<mat-error *ngIf="registerForm.controls['lastName']?.errors?.['required']">
+			This field is required
+		</mat-error>
+	</mat-form-field>
+	<button mat-flat-button color="primary" (click)="onSubmit($event)">Register</button>
+
+</form>

@@ -1,0 +1,19 @@
+
+
+.formWrapper {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	width: 500px;
+	margin: 0 auto;
+
+	.mat-mdc-form-field {
+		width: 400px;
+	}
+
+}
+
+.errorMessage{
+	margin-bottom: 50px;
+}
