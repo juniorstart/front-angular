@@ -15,6 +15,9 @@ import { SidenavComponent } from './sidenav/sidenav.component';
 import { HttpClientModule } from '@angular/common/http';
 import {AuthService} from './services/auth.service';
 import { RecruitmentsComponent } from './recruitments/recruitments.component';
+import { ToolbarComponent } from './toolbar/toolbar.component';
+import {LoggedUserGuardService} from './services/logged-user-guard.service';
+import {GuestGuardService} from './services/guest-guard.service';
 
 @NgModule({
   declarations: [
@@ -23,6 +26,7 @@ import { RecruitmentsComponent } from './recruitments/recruitments.component';
     LoginComponent,
     SidenavComponent,
     RecruitmentsComponent,
+    ToolbarComponent,
   ],
   imports: [
     BrowserModule,
@@ -36,7 +40,7 @@ import { RecruitmentsComponent } from './recruitments/recruitments.component';
     ReactiveFormsModule,
     HttpClientModule,
   ],
-  providers: [AuthService],
+  providers: [AuthService, LoggedUserGuardService, GuestGuardService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

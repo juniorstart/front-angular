@@ -2,11 +2,11 @@ import { Component } from '@angular/core';
 import {AuthService} from '../services/auth.service';
 
 @Component({
-  selector: 'app-sidenav',
-  templateUrl: './sidenav.component.html',
-  styleUrls: ['./sidenav.component.scss']
+  selector: 'app-toolbar',
+  templateUrl: './toolbar.component.html',
+  styleUrls: ['./toolbar.component.scss']
 })
-export class SidenavComponent {
+export class ToolbarComponent {
 
 
   constructor(private authService: AuthService) {
@@ -15,4 +15,9 @@ export class SidenavComponent {
   isLoggedIn(){
     return this.authService.isLoggedIn()
   }
+
+  logout(){
+    return this.authService.logout()
+  }
+
 }
