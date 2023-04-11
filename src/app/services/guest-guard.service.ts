@@ -9,6 +9,6 @@ export class GuestGuardService implements CanActivate {
 	}
 
 	canActivate() {
-		return this.authService.isLoggedIn()
+		return !this.authService.isLoggedIn()
 	}
 }

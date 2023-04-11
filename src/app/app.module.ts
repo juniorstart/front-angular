@@ -12,12 +12,18 @@ import {MatIconModule} from '@angular/material/icon';
 import {ReactiveFormsModule} from '@angular/forms';
 import { LoginComponent } from './login/login.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
-import { HttpClientModule } from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {AuthService} from './services/auth.service';
 import { RecruitmentsComponent } from './recruitments/recruitments.component';
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import {LoggedUserGuardService} from './services/logged-user-guard.service';
 import {GuestGuardService} from './services/guest-guard.service';
+import {MatCardModule} from '@angular/material/card';
+import {RecruitmentsService} from './services/recruitments.service';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule} from '@angular/material/core';
+import {RequestInterceptor} from './interceptors/request.interceptor';
+import {MatExpansionModule} from '@angular/material/expansion';
 
 @NgModule({
   declarations: [
@@ -39,8 +45,16 @@ import {GuestGuardService} from './services/guest-guard.service';
     MatIconModule,
     ReactiveFormsModule,
     HttpClientModule,
+    MatCardModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatExpansionModule
   ],
-  providers: [AuthService, LoggedUserGuardService, GuestGuardService],
+  providers: [AuthService, LoggedUserGuardService, GuestGuardService, RecruitmentsService, {
+    provide: HTTP_INTERCEPTORS,
+    useClass: RequestInterceptor,
+    multi: true,
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

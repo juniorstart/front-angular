@@ -27,7 +27,7 @@ export class LoginComponent{
       console.log('SUBMIT');
       this.authService.login(this.loginForm.value as LoginData).subscribe({
         next: (token) => {
-          localStorage.setItem("userToken", token)
+          this.authService.setJWTToken(token)
           this.router.navigate([""])
         }
       })
