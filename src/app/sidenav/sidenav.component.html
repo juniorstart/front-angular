@@ -2,12 +2,23 @@
 	<mat-sidenav mode="side" opened>
 		<nav>
 			<ul>
-				<li>
-					<a mat-flat-button color="primary" [routerLink]="'login'">Login</a>
-				</li>
-				<li>
-					<a mat-flat-button color="primary" [routerLink]="'register'" >Register</a>
-				</li>
+				<ng-container *ngIf="isLoggedIn()">
+					<li>
+						<a mat-flat-button color="primary" [routerLink]="'recruitments'">Recruitments</a>
+					</li>
+					<li>
+						<a mat-flat-button color="primary" [routerLink]="'todoLists'" >ToDo Lists</a>
+					</li>
+				</ng-container>
+				<ng-container *ngIf="!isLoggedIn()">
+					<li>
+						<a mat-flat-button color="primary" [routerLink]="'login'">Login</a>
+					</li>
+					<li>
+						<a mat-flat-button color="primary" [routerLink]="'register'" >Register</a>
+					</li>
+				</ng-container>
+
 			</ul>
 		</nav>
 	</mat-sidenav>

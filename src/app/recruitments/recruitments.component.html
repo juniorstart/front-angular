@@ -1,0 +1,69 @@
+<div class="recruitmentsWrapper">
+	<mat-card>
+		<h1>Recruitments</h1>
+
+		<div *ngFor="let rec of recruitments">
+			<mat-accordion class="example-headers-align" multi>
+				<mat-expansion-panel>
+					<mat-expansion-panel-header>
+						<mat-panel-title>
+							{{rec.companyName}}
+						</mat-panel-title>
+
+					</mat-expansion-panel-header>
+
+					<div>City: {{rec.workPlace}}</div>
+					<div>Details: {{rec.notes}}</div>
+					<div>Date of company reply: {{rec.dateOfCompanyReply}}</div>
+					<br>
+					<div class="buttonsWrapper">
+						<button mat-stroked-button color="secondary" (click)="delete(rec.id!)">Delete</button>
+						<button mat-flat-button color="primary" (click)="edit(rec.id!)">Edit</button>
+					</div>
+				</mat-expansion-panel>
+			</mat-accordion>
+		</div>
+	</mat-card>
+	<mat-card>
+		<form [formGroup]="recruitmentsForm" (ngSubmit)="onSubmit()" class="formWrapper">
+			<mat-form-field class="example-form-field" [ngClass]="{'mb-3': isFieldValidatedCorrectly('companyName')}">
+				<mat-label>Company name</mat-label>
+				<input matInput type="text" id="companyName" formControlName="companyName">
+				<mat-error *ngIf="recruitmentsForm.controls['companyName']?.errors?.['required']">
+					This field is required
+				</mat-error>
+				<mat-error *ngIf="recruitmentsForm.controls['companyName']?.errors?.['minlength']">
+					Login must consists of at least 3 characters
+				</mat-error>
+			</mat-form-field>
+			<mat-form-field class="example-form-field" [ngClass]="{'mb-3': isFieldValidatedCorrectly('workPlace')}">
+				<mat-label>City</mat-label>
+				<input matInput type="text" id="workPlace" formControlName="workPlace">
+				<mat-error *ngIf="recruitmentsForm.controls['workPlace']?.errors?.['required']">
+					This field is required
+				</mat-error>
+			</mat-form-field>
+			<mat-form-field class="example-form-field" [ngClass]="{'mb-3': isFieldValidatedCorrectly('notes')}">
+				<mat-label>Notes</mat-label>
+				<textarea matInput type="text" id="details" formControlName="notes"></textarea>
+				<mat-error *ngIf="recruitmentsForm.controls['notes']?.errors?.['required']">
+					This field is required
+				</mat-error>
+			</mat-form-field>
+			<mat-form-field appearance="fill" [ngClass]="{'mb-3': isFieldValidatedCorrectly('dateOfCompanyReply')}">
+				<mat-label>Company reply date</mat-label>
+				<input matInput [matDatepicker]="picker" formControlName="dateOfCompanyReply">
+				<mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+				<mat-datepicker #picker></mat-datepicker>
+				<mat-error *ngIf="recruitmentsForm.controls['dateOfCompanyReply']?.errors?.['required']">
+					This field is required
+				</mat-error>
+			</mat-form-field>
+			<div class="buttonsWrapper">
+				<button mat-stroked-button color="secondary" (click)="onCancel()">Cancel</button>
+				<button mat-flat-button color="primary" (click)="onSubmit()">Save</button>
+			</div>
+
+		</form>
+	</mat-card>
+</div>
