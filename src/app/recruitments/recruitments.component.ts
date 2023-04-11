@@ -3,11 +3,14 @@ import {RecruitmentsService} from '../services/recruitments.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Recruitment} from '../types/recruitments';
 
+type FormKeys = 'companyName' | 'workPlace' | 'notes' | 'dateOfCompanyReply'
+
 @Component({
 	selector: 'app-recruitments',
 	templateUrl: './recruitments.component.html',
 	styleUrls: ['./recruitments.component.scss']
 })
+
 export class RecruitmentsComponent implements OnInit {
 
 	recruitmentsForm = new FormGroup({
@@ -28,15 +31,18 @@ export class RecruitmentsComponent implements OnInit {
 		});
 	}
 
+	isFieldValidatedCorrectly(fieldName: FormKeys) {
+		return !!this.recruitmentsForm.controls[fieldName].errors && this.recruitmentsForm.controls[fieldName].touched;
+	}
+
 	onSubmit() {
+		this.recruitmentsForm.markAllAsTouched();
 		if (this.recruitmentsForm.valid) {
 			if (this.itemToEdit) {
 				this.recruitmentsService.update(this.itemToEdit.id!, {...this.itemToEdit, ...this.recruitmentsForm.value} as Recruitment).subscribe();
 			} else {
 				this.recruitmentsService.create(this.recruitmentsForm.value as Recruitment).subscribe();
 			}
-		} else {
-			this.recruitmentsForm.markAllAsTouched();
 		}
 	}
 

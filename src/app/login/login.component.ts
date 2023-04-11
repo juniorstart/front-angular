@@ -21,16 +21,15 @@ export class LoginComponent{
   constructor(private authService: AuthService, private router: Router) {
   }
 
+
+  isFieldValidatedCorrectly(fieldName: "login" | "password") {
+    return !!this.loginForm.controls[fieldName].errors && this.loginForm.controls[fieldName].touched;
+  }
+
   onSubmit(e: MouseEvent) {
     e.preventDefault();
     if (this.loginForm.valid) {
-      console.log('SUBMIT');
-      this.authService.login(this.loginForm.value as LoginData).subscribe({
-        next: (token) => {
-          this.authService.setJWTToken(token)
-          this.router.navigate([""])
-        }
-      })
+      this.authService.login(this.loginForm.value as LoginData).subscribe()
     } else {
       this.loginForm.markAllAsTouched();
       this.loginForm.setErrors([{...this.loginForm.errors}]);
