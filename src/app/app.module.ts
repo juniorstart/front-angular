@@ -24,6 +24,8 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
 import {RequestInterceptor} from './interceptors/request.interceptor';
 import {MatExpansionModule} from '@angular/material/expansion';
+import { StoreModule } from '@ngrx/store';
+import {recruitmentsReducer} from './store/reducers/recruitments.reducer';
 
 @NgModule({
   declarations: [
@@ -48,7 +50,8 @@ import {MatExpansionModule} from '@angular/material/expansion';
     MatCardModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatExpansionModule
+    MatExpansionModule,
+    StoreModule.forRoot({recruitments: recruitmentsReducer}, {})
   ],
   providers: [AuthService, LoggedUserGuardService, GuestGuardService, RecruitmentsService, {
     provide: HTTP_INTERCEPTORS,

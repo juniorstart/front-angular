@@ -2,7 +2,7 @@
 	<mat-card>
 		<h1>Recruitments</h1>
 
-		<div *ngFor="let rec of recruitments">
+		<div *ngFor="let rec of recruitments | async">
 			<mat-accordion class="example-headers-align" multi>
 				<mat-expansion-panel>
 					<mat-expansion-panel-header>
@@ -60,8 +60,8 @@
 				</mat-error>
 			</mat-form-field>
 			<div class="buttonsWrapper">
-				<button mat-stroked-button color="secondary" (click)="onCancel()">Cancel</button>
-				<button mat-flat-button color="primary" (click)="onSubmit()">Save</button>
+				<button mat-stroked-button color="secondary" type="button" (click)="onCancel()">Cancel</button>
+				<button mat-flat-button color="primary">Save</button>
 			</div>
 
 		</form>
