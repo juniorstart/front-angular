@@ -24,6 +24,9 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
 import {RequestInterceptor} from './interceptors/request.interceptor';
 import {MatExpansionModule} from '@angular/material/expansion';
+import { TodolistsComponent } from './todolists/todolists.component';
+import {TodoListsService} from './services/todo-lists.service';
+import {MatSelectModule} from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -33,6 +36,7 @@ import {MatExpansionModule} from '@angular/material/expansion';
     SidenavComponent,
     RecruitmentsComponent,
     ToolbarComponent,
+    TodolistsComponent,
   ],
   imports: [
     BrowserModule,
@@ -48,9 +52,10 @@ import {MatExpansionModule} from '@angular/material/expansion';
     MatCardModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatSelectModule
   ],
-  providers: [AuthService, LoggedUserGuardService, GuestGuardService, RecruitmentsService, {
+  providers: [AuthService, LoggedUserGuardService, GuestGuardService, RecruitmentsService, TodoListsService, {
     provide: HTTP_INTERCEPTORS,
     useClass: RequestInterceptor,
     multi: true,
