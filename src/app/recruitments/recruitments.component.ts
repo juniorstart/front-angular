@@ -2,6 +2,11 @@ import {Component, OnInit} from '@angular/core';
 import {RecruitmentsService} from '../services/recruitments.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Recruitment} from '../types/recruitments';
+import {AppState} from '../types/appState';
+import {select, Store} from '@ngrx/store';
+import * as RecruitmentsActions from "../store/actions/recruitments.action"
+import {recruitmentsSelector} from '../store/selectors/recruitments.selectors';
+import { Observable } from 'rxjs';
 
 type FormKeys = 'companyName' | 'workPlace' | 'notes' | 'dateOfCompanyReply'
 
@@ -19,15 +24,18 @@ export class RecruitmentsComponent implements OnInit {
 		notes: new FormControl('', [Validators.required]),
 		dateOfCompanyReply: new FormControl('', [Validators.required])
 	});
-	recruitments: Recruitment[] = [];
+	recruitments: Observable<Recruitment[]>;
 	itemToEdit: Recruitment | undefined = undefined;
 
-	constructor(private recruitmentsService: RecruitmentsService) {
+	constructor(private recruitmentsService: RecruitmentsService, private store: Store<AppState>) {
 	}
 
 	ngOnInit() {
 		this.recruitmentsService.get().subscribe({
-			next: data => this.recruitments = data as Recruitment[]
+			next: data => {
+				this.recruitments = this.store.pipe(select(recruitmentsSelector))
+				this.store.dispatch(RecruitmentsActions.setRecruitments({recruitments: data as Recruitment[]}))
+			}
 		});
 	}
 
@@ -36,13 +44,23 @@ export class RecruitmentsComponent implements OnInit {
 	}
 
 	onSubmit() {
-		this.recruitmentsForm.markAllAsTouched();
 		if (this.recruitmentsForm.valid) {
 			if (this.itemToEdit) {
-				this.recruitmentsService.update(this.itemToEdit.id!, {...this.itemToEdit, ...this.recruitmentsForm.value} as Recruitment).subscribe();
+				const editedRecruitment = {...this.itemToEdit, ...this.recruitmentsForm.value} as Recruitment
+				this.recruitmentsService.update(this.itemToEdit.id!, editedRecruitment).subscribe({
+					next: () => {
+						this.store.dispatch(RecruitmentsActions.updateRecruitment({id: this.itemToEdit!.id!, recruitment: editedRecruitment}))
+					}
+				});
 			} else {
-				this.recruitmentsService.create(this.recruitmentsForm.value as Recruitment).subscribe();
+				this.recruitmentsService.create(this.recruitmentsForm.value as Recruitment).subscribe({
+					next: (data) => {
+						this.store.dispatch(RecruitmentsActions.addRecruitment({ recruitment: data as Recruitment}))
+					}
+				});
 			}
+		} else {
+			this.recruitmentsForm.markAllAsTouched();
 		}
 	}
 
@@ -52,19 +70,27 @@ export class RecruitmentsComponent implements OnInit {
 	}
 
 	delete(id: string) {
-		this.recruitmentsService.delete(id).subscribe();
+		this.recruitmentsService.delete(id).subscribe({
+			next: () => {
+				this.store.dispatch(RecruitmentsActions.deleteRecruitment({id}))
+			}
+		});
 	}
 
 	edit(id: string) {
-		const currentRecruitment = this.recruitments.find(i => i.id === id);
-		if (currentRecruitment) {
-			this.itemToEdit = currentRecruitment;
-			this.recruitmentsForm.setValue({
-				companyName: currentRecruitment.companyName,
-				workPlace: currentRecruitment.workPlace,
-				notes: currentRecruitment.notes,
-				dateOfCompanyReply: currentRecruitment.dateOfCompanyReply
-			});
-		}
+		this.recruitments.subscribe({
+			next: recs => {
+				const currentRecruitment = recs.find(i => i.id === id)
+				if (currentRecruitment) {
+					this.itemToEdit = currentRecruitment;
+					this.recruitmentsForm.setValue({
+						companyName: currentRecruitment.companyName,
+						workPlace: currentRecruitment.workPlace,
+						notes: currentRecruitment.notes,
+						dateOfCompanyReply: currentRecruitment.dateOfCompanyReply
+					});
+				}
+			}
+		})
 	}
 }

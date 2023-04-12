@@ -27,6 +27,8 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import { TodolistsComponent } from './todolists/todolists.component';
 import {TodoListsService} from './services/todo-lists.service';
 import {MatSelectModule} from '@angular/material/select';
+import { StoreModule } from '@ngrx/store';
+import {recruitmentsReducer} from './store/reducers/recruitments.reducer';
 
 @NgModule({
   declarations: [
@@ -53,7 +55,9 @@ import {MatSelectModule} from '@angular/material/select';
     MatDatepickerModule,
     MatNativeDateModule,
     MatExpansionModule,
-    MatSelectModule
+    MatSelectModule,
+    MatExpansionModule,
+    StoreModule.forRoot({recruitments: recruitmentsReducer}, {})
   ],
   providers: [AuthService, LoggedUserGuardService, GuestGuardService, RecruitmentsService, TodoListsService, {
     provide: HTTP_INTERCEPTORS,
