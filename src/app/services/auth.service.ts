@@ -1,21 +1,18 @@
-import {environment} from '../environment';
+import {environment} from '../../environment';
 import {HttpClient} from '@angular/common/http';
 import {LoginData, User} from '../types/auth';
 import {Injectable, NgModule} from '@angular/core';
 import {CookieService} from 'ngx-cookie-service';
-
-const BASE_URL = `${environment.apiUrl}/`
-
+import {map, tap} from 'rxjs';
+import {Router} from '@angular/router';
 
 @Injectable({
 	providedIn: "root"
 })
 export class AuthService {
 
-	constructor(private httpClient: HttpClient, private cookiesService: CookieService) {
+	constructor(private httpClient: HttpClient, private cookiesService: CookieService, private router: Router) {
 	}
-
-
 
 	setJWTToken(token: string){
 		this.cookiesService.set("jwt", token)
@@ -29,11 +26,16 @@ export class AuthService {
 				...data,
 			}
 		}
-		return this.httpClient.post(BASE_URL + "register", obj)
+		return this.httpClient.post(`${environment.apiUrl}/register`, obj)
 	}
 
 	login(data: LoginData) {
-		return this.httpClient.post<string>(BASE_URL + "Login", data)
+		return this.httpClient.post<string>(`${environment.apiUrl}/login`, data).pipe(
+			tap(token => {
+				this.setJWTToken(token)
+				this.router.navigate([""])
+			})
+		)
 	}
 
 	isLoggedIn(){

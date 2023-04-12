@@ -7,11 +7,15 @@ import {select, Store} from '@ngrx/store';
 import * as RecruitmentsActions from "../store/actions/recruitments.action"
 import {recruitmentsSelector} from '../store/selectors/recruitments.selectors';
 import { Observable } from 'rxjs';
+
+type FormKeys = 'companyName' | 'workPlace' | 'notes' | 'dateOfCompanyReply'
+
 @Component({
 	selector: 'app-recruitments',
 	templateUrl: './recruitments.component.html',
 	styleUrls: ['./recruitments.component.scss']
 })
+
 export class RecruitmentsComponent implements OnInit {
 
 	recruitmentsForm = new FormGroup({
@@ -33,6 +37,10 @@ export class RecruitmentsComponent implements OnInit {
 				this.store.dispatch(RecruitmentsActions.setRecruitments({recruitments: data as Recruitment[]}))
 			}
 		});
+	}
+
+	isFieldValidatedCorrectly(fieldName: FormKeys) {
+		return !!this.recruitmentsForm.controls[fieldName].errors && this.recruitmentsForm.controls[fieldName].touched;
 	}
 
 	onSubmit() {

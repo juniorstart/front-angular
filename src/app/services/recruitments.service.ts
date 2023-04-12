@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {environment} from '../environment';
+import {environment} from '../../environment';
 import {Recruitment} from '../types/recruitments';
 
 const API_URL = `${environment.apiUrl}/api/recruitment`
