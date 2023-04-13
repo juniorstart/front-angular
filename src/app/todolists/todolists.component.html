@@ -1,0 +1,94 @@
+<div class="todoListsWrapper">
+	<mat-card>
+		<h1>To do lists</h1>
+
+		<div *ngFor="let todoList of todoLists$ | async">
+			<mat-accordion class="example-headers-align" multi>
+				<mat-expansion-panel>
+					<mat-expansion-panel-header>
+						<mat-panel-title>
+							{{todoList.name}}
+						</mat-panel-title>
+
+					</mat-expansion-panel-header>
+
+					<h4>tasks</h4>
+					<div *ngFor="let task of todoList.tasks" class="tasksWrapper">
+						<mat-accordion class="example-headers-align" multi>
+							<mat-expansion-panel>
+								<mat-expansion-panel-header>
+									<mat-panel-title>
+										{{task.description}}
+									</mat-panel-title>
+
+								</mat-expansion-panel-header>
+								<div class="buttonsWrapper">
+									<button mat-stroked-button color="secondary" (click)="deleteTodoListTask(todoList.id, task.id)">Delete</button>
+									<button mat-flat-button color="primary" (click)="editTodoListTask(todoList.id, task.id)">Edit</button>
+								</div>
+							</mat-expansion-panel>
+						</mat-accordion>
+
+					</div>
+					<div class="buttonsWrapper">
+						<button mat-stroked-button color="secondary" (click)="deleteTodoList(todoList.id)">Delete</button>
+					</div>
+				</mat-expansion-panel>
+			</mat-accordion>
+		</div>
+	</mat-card>
+	<div class="rightContentWrapper">
+		<mat-card>
+			<h1>Create To do list</h1>
+			<form [formGroup]="todoListForm" (ngSubmit)="onCreateTodoListSubmit()" class="formWrapper">
+				<mat-form-field [ngClass]="{'mb-3': this.todoListForm.controls['name'].errors && this.todoListForm.controls['name'].touched}">
+					<mat-label>Todo list name</mat-label>
+					<input matInput type="text" id="name" formControlName="name">
+					<mat-error *ngIf="todoListForm.controls['name']?.errors?.['required']">
+						This field is required
+					</mat-error>
+
+				</mat-form-field>
+
+				<div class="buttonsWrapper">
+					<button mat-stroked-button color="secondary" (click)="onCreateTodoListCancel()">Cancel</button>
+					<button mat-flat-button color="primary">Save</button>
+				</div>
+			</form>
+
+		</mat-card>
+		<mat-card>
+			<h1>Add task</h1>
+			<form [formGroup]="todoListTaskForm" (ngSubmit)="onCreateTodoListTaskSubmit()" class="formWrapper">
+				<mat-form-field
+					[ngClass]="{'mb-3': this.todoListTaskForm.controls['todoListId'].errors && this.todoListTaskForm.controls['todoListId'].touched}">
+					<mat-label>Todo list name</mat-label>
+					<mat-select formControlName="todoListId">
+						<mat-option *ngFor="let todoList of todoLists$ | async" [value]="todoList.id">
+							{{todoList.name}}
+						</mat-option>
+					</mat-select>
+					<mat-error *ngIf="todoListTaskForm.controls['todoListId']?.errors?.['required']">
+						This field is required
+					</mat-error>
+				</mat-form-field>
+				<mat-form-field
+					[ngClass]="{'mb-3': this.todoListTaskForm.controls['description'].errors && this.todoListTaskForm.controls['description'].touched}">
+					<mat-label>Description</mat-label>
+					<input matInput type="text" id="description" formControlName="description">
+					<mat-error *ngIf="todoListTaskForm.controls['description']?.errors?.['required']">
+						This field is required
+					</mat-error>
+				</mat-form-field>
+
+				<div class="buttonsWrapper">
+					<button mat-stroked-button color="secondary" (click)="onCreateTodoListTaskCancel()">Cancel</button>
+					<button mat-flat-button color="primary">Save</button>
+				</div>
+			</form>
+
+		</mat-card>
+	</div>
+
+
+</div>
