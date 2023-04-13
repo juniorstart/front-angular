@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {FormControl, FormGroup, ValidatorFn, Validators} from '@angular/forms';
-import {AuthService} from '../services/auth.service';
-import {User} from '../types/auth';
+import {AuthService} from '../../services/auth.service';
+import {User} from '../../types/auth';
 
 @Component({
 	selector: 'app-register',
@@ -37,12 +37,10 @@ export class RegisterComponent {
 		};
 	}
 
-	onSubmit(e: MouseEvent) {
+	onSubmit(e: Event) {
 		e.preventDefault();
 		if (this.registerForm.valid) {
-			console.log('SUBMIT');
 			this.authService.register(this.registerForm.value as User).subscribe();
-
 		} else {
 			this.registerForm.markAllAsTouched();
 			this.registerForm.setErrors([{...this.registerForm.errors}]);

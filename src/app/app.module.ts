@@ -6,16 +6,16 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatButtonModule} from '@angular/material/button';
-import { RegisterComponent } from './register/register.component';
+import { RegisterComponent } from './components/register/register.component';
 import {MatInputModule} from '@angular/material/input';
 import {MatIconModule} from '@angular/material/icon';
 import {ReactiveFormsModule} from '@angular/forms';
-import { LoginComponent } from './login/login.component';
-import { SidenavComponent } from './sidenav/sidenav.component';
+import { LoginComponent } from './components/login/login.component';
+import { SidenavComponent } from './components/sidenav/sidenav.component';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {AuthService} from './services/auth.service';
-import { RecruitmentsComponent } from './recruitments/recruitments.component';
-import { ToolbarComponent } from './toolbar/toolbar.component';
+import { RecruitmentsComponent } from './components/recruitments/recruitments.component';
+import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import {LoggedUserGuardService} from './services/logged-user-guard.service';
 import {GuestGuardService} from './services/guest-guard.service';
 import {MatCardModule} from '@angular/material/card';
@@ -24,40 +24,31 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
 import {RequestInterceptor} from './interceptors/request.interceptor';
 import {MatExpansionModule} from '@angular/material/expansion';
-import { TodolistsComponent } from './todolists/todolists.component';
+import { TodolistsComponent } from './components/todolists/todolists.component';
 import {TodoListsService} from './services/todo-lists.service';
 import {MatSelectModule} from '@angular/material/select';
 import { StoreModule } from '@ngrx/store';
 import {recruitmentsReducer} from './store/reducers/recruitments.reducer';
 import {todoListsReducer} from './store/reducers/todoLists.reducer';
+import {AngularMaterialModule} from './modules/material.module';
+import {AuthModule} from './modules/auth.module';
 
 @NgModule({
   declarations: [
-    RegisterComponent,
     AppComponent,
-    LoginComponent,
     SidenavComponent,
     RecruitmentsComponent,
     ToolbarComponent,
     TodolistsComponent,
   ],
   imports: [
+    AngularMaterialModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MatToolbarModule,
-    MatSidenavModule,
-    MatButtonModule,
-    MatInputModule,
-    MatIconModule,
     ReactiveFormsModule,
     HttpClientModule,
-    MatCardModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    MatExpansionModule,
-    MatSelectModule,
-    MatExpansionModule,
+    AuthModule,
     StoreModule.forRoot({recruitments: recruitmentsReducer, todoLists: todoListsReducer}, {})
   ],
   providers: [AuthService, LoggedUserGuardService, GuestGuardService, RecruitmentsService, TodoListsService, {

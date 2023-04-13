@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core';
-import {RecruitmentsService} from '../services/recruitments.service';
+import {RecruitmentsService} from '../../services/recruitments.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {Recruitment} from '../types/recruitments';
-import {AppState} from '../types/appState';
+import {Recruitment} from '../../types/recruitments';
+import {AppState} from '../../types/appState';
 import {select, Store} from '@ngrx/store';
-import * as RecruitmentsActions from "../store/actions/recruitments.action"
-import {recruitmentsSelector} from '../store/selectors/recruitments.selectors';
+import * as RecruitmentsActions from "../../store/actions/recruitments.action"
+import {recruitmentsSelector} from '../../store/selectors/recruitments.selectors';
 import { Observable } from 'rxjs';
 
 type FormKeys = 'companyName' | 'workPlace' | 'notes' | 'dateOfCompanyReply'

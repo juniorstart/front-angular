@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {TodoListsService} from '../services/todo-lists.service';
-import {TaskPayload, TodoList, TodoListTask} from '../types/todoLists';
-import {AppState} from '../types/appState';
+import {TodoListsService} from '../../services/todo-lists.service';
+import {TaskPayload, TodoList, TodoListTask} from '../../types/todoLists';
+import {AppState} from '../../types/appState';
 import {select, Store} from '@ngrx/store';
-import {todoListsSelector} from '../store/selectors/todoLists.selectors';
-import * as TodoListsActions from "../store/actions/todoLists.action"
+import {todoListsSelector} from '../../store/selectors/todoLists.selectors';
+import * as TodoListsActions from "../../store/actions/todoLists.action"
 import { Observable } from 'rxjs';
 
 @Component({
