@@ -1,0 +1,14 @@
+<mat-accordion class="example-headers-align" multi>
+	<mat-expansion-panel>
+		<mat-expansion-panel-header>
+			<mat-panel-title>
+				{{task.description}}
+			</mat-panel-title>
+
+		</mat-expansion-panel-header>
+				<div class="buttonsWrapper">
+					<button mat-stroked-button color="secondary" (click)="deleteTodoListTask()">Delete</button>
+					<button mat-flat-button color="primary" (click)="editTodoListTask()">Edit</button>
+				</div>
+	</mat-expansion-panel>
+</mat-accordion>

@@ -40,9 +40,6 @@ export class TodolistsComponent implements OnInit {
 	}
 
 	onCreateTodoListSubmit() {
-		this.todoLists$.subscribe({
-			next: d => console.log("D", d)
-		})
 		if (this.todoListForm.valid) {
 			this.todoListsService.createTodoList(this.todoListForm.value as TodoList).subscribe({
 				next: (d) => {
