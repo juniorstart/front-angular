@@ -9,26 +9,10 @@
 						<mat-panel-title>
 							{{todoList.name}}
 						</mat-panel-title>
-
 					</mat-expansion-panel-header>
-
 					<h4>tasks</h4>
 					<div *ngFor="let task of todoList.tasks" class="tasksWrapper">
-						<mat-accordion class="example-headers-align" multi>
-							<mat-expansion-panel>
-								<mat-expansion-panel-header>
-									<mat-panel-title>
-										{{task.description}}
-									</mat-panel-title>
-
-								</mat-expansion-panel-header>
-								<div class="buttonsWrapper">
-									<button mat-stroked-button color="secondary" (click)="deleteTodoListTask(todoList.id, task.id)">Delete</button>
-									<button mat-flat-button color="primary" (click)="editTodoListTask(todoList.id, task.id)">Edit</button>
-								</div>
-							</mat-expansion-panel>
-						</mat-accordion>
-
+						<app-todolist-task [task]="task" (delete)="deleteTodoListTask(todoList.id, task.id)" (edit)="editTodoListTask(todoList.id, task.id)"></app-todolist-task>
 					</div>
 					<div class="buttonsWrapper">
 						<button mat-stroked-button color="secondary" (click)="deleteTodoList(todoList.id)">Delete</button>

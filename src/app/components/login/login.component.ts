@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {HttpClient} from '@angular/common/http';
-import {AuthService} from '../services/auth.service';
-import {LoginData} from '../types/auth';
+import {AuthService} from '../../services/auth.service';
+import {LoginData} from '../../types/auth';
 import {Router} from '@angular/router';
 
 @Component({
@@ -14,8 +14,8 @@ import {Router} from '@angular/router';
 export class LoginComponent{
 
   loginForm = new FormGroup({
-    login: new FormControl('kajonczyk', [Validators.required, Validators.minLength(3)]),
-    password: new FormControl('K@jonczyk000', [Validators.required, Validators.minLength(8)])
+    login: new FormControl('', [Validators.required, Validators.minLength(3)]),
+    password: new FormControl('', [Validators.required, Validators.minLength(8)])
   })
 
   constructor(private authService: AuthService, private router: Router) {
